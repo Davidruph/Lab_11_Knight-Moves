@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>David Junior’s Knight Moves</title>
+        <style type="text/css">
+            @import url('https://fonts.googleapis.com/css?family=Lora');
+
+            body {
+                font-size: 1.1em;
+                font-family: 'Lora', serif;
+                background-color: pink;
+            }
+            td {
+                display: inline-block;
+                width: 50px;
+                height: 50px;
+                border: thin solid black;
+            }
+
+            tr:nth-child(even) td:nth-child(even),
+            tr:nth-child(odd) td:nth-child(odd) {
+                background-color: gray;
+            }
+
+            .hasKnight {
+                background-image: url(WhiteKnight.png);
+                background-repeat: no-repeat;
+                background-size: 45px 45px;
+            }
+        </style>
+    </head>
+
+    <body>
+        <!--html name comment-->
+        <!--David Junior-->
+        <header>
+           <h3>David Junior’s Knight Moves</h3>
+        </header>
+        <table>
+            <tr>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+            </tr>
+            <tr>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+            </tr>
+            <tr>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+            </tr>
+            <tr>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+            </tr>
+            <tr>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+            </tr>
+            <tr>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+            </tr>
+            <tr>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+            </tr>
+            <tr>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+            </tr>
+        </table>
+ <script>
+
+            //javascript name comment
+            //David Junior
+            
+    
+            let cells = document.getElementsByTagName("td");
+            let randomIndex = Math.floor(Math.random() * cells.length);
+            cells[randomIndex].classList.add("hasKnight");
+
+            cells[randomIndex].addEventListener("mouseenter", function () {
+                let me = this;
+                let myparent = me.parentNode;
+                //myparent.style.backgroundColor = "green";
+                me.style.backgroundColor = "red";
+
+                //same row
+                let index = Array.from(myparent.children).indexOf(me);
+                console.log(index)
+                //to the left
+                let leftParent = myparent.nextElementSibling;
+                if (index > 0) {
+
+                    if (leftParent) {
+                        if ((index - 2) >= 0) {
+                            leftParent.children[index - 2].style.backgroundColor = "blue";
+                        }
+
+                        if ((index < myparent.children.length - 1) && (index + 2) < myparent.children.length) {
+                            leftParent.children[index + 2].style.backgroundColor = "blue";
+                        }
+
+                    }
+                } else if (index == 0 && leftParent) {
+                    if ((index < myparent.children.length - 1) && (index + 2) < myparent.children.length) {
+                        leftParent.children[index + 2].style.backgroundColor = "blue";
+                    }
+                }
+
+                //to the right
+                if (index <= myparent.children.length - 1) {
+                   
+                    let rightParent = myparent.previousElementSibling;
+
+                    if (rightParent && (index + 2) < myparent.children.length) {
+                        rightParent.children[index + 2].style.backgroundColor = "blue";
+
+                    }
+
+
+                    if ((index - 2) >= 0 && rightParent) {
+                        rightParent.children[index - 2].style.backgroundColor = "blue";
+                    }
+
+                }
+
+
+                let grandparent = myparent.parentNode;
+                let parentindex = Array.from(grandparent.children).indexOf(myparent);
+
+                //row above
+                if (parentindex > 1) {
+                    if (((parentindex - 2) >= 0) && ((index - 1) >= 0)) {
+                        grandparent.children[parentindex - 2].children[index - 1].style.backgroundColor = "blue";
+                    }
+
+                    //to the left in the row above
+                    if (index > 1) {
+                       
+                        if (grandparent.children[parentindex - 2].children[index + 1]) {
+                            grandparent.children[parentindex - 2].children[index + 1].style.backgroundColor = "blue";
+                        }
+
+                    }
+                    //to the right in the row above
+                    if (index < myparent.children.length - 1) {
+                        grandparent.children[parentindex - 2].children[index + 1].style.backgroundColor = "blue";
+                    }
+                }
+
+                //row below
+                if (parentindex < grandparent.children.length - 2) {
+                    if (grandparent.children[parentindex + 2] && (index - 1) >= 0) {
+                        grandparent.children[parentindex + 2].children[index - 1].style.backgroundColor = "blue";
+                    }
+
+                   
+                    //to the right in the row below
+                    if (index < myparent.children.length - 1) {
+                        grandparent.children[parentindex + 2].children[index + 1].style.backgroundColor = "blue";
+                    }
+                }
+            });
+            // }
+            // for (let i = 0; i < cells.length; i++) {
+            cells[randomIndex].addEventListener("mouseout", function () {
+                me = this;
+                let myparent = me.parentNode;
+                me.style.backgroundColor = "";
+                let index = Array.from(myparent.children).indexOf(me);
+                let leftParent = myparent.nextElementSibling;
+                if (index > 0) {
+                   
+                    if (leftParent) {
+                        if ((index - 2) >= 0) {
+                            leftParent.children[index - 2].style.backgroundColor = "";
+                        }
+
+                        if ((index < myparent.children.length - 1) && (index + 2) < myparent.children.length) {
+                            leftParent.children[index + 2].style.backgroundColor = "";
+                        }
+
+                    }
+                } else if (index == 0 && leftParent) {
+                    if ((index < myparent.children.length - 1) && (index + 2) < myparent.children.length) {
+                        leftParent.children[index + 2].style.backgroundColor = "";
+                    }
+                }
+
+                //to the right
+                if (index <= myparent.children.length - 1) {
+                   
+                    let rightParent = myparent.previousElementSibling;
+
+                    if (rightParent && (index + 2) < myparent.children.length) {
+                        rightParent.children[index + 2].style.backgroundColor = "";
+
+                    }
+
+
+                    if ((index - 2) >= 0 && rightParent) {
+                        rightParent.children[index - 2].style.backgroundColor = "";
+                    }
+
+                }
+
+
+                let grandparent = myparent.parentNode;
+                let parentindex = Array.from(grandparent.children).indexOf(myparent);
+
+                //row above
+                if (parentindex > 1) {
+                    if (((parentindex - 2) >= 0) && ((index - 1) >= 0)) {
+                        grandparent.children[parentindex - 2].children[index - 1].style.backgroundColor = "";
+                    }
+
+                    //to the left in the row above
+                    if (index > 1) {
+                       
+                        if (grandparent.children[parentindex - 2].children[index + 1]) {
+                            grandparent.children[parentindex - 2].children[index + 1].style.backgroundColor = "";
+                        }
+
+                    }
+                    //to the right in the row above
+                    if (index < myparent.children.length - 1) {
+                        grandparent.children[parentindex - 2].children[index + 1].style.backgroundColor = "";
+                    }
+                }
+
+                //row below
+                if (parentindex < grandparent.children.length - 2) {
+                    if (grandparent.children[parentindex + 2] && (index - 1) >= 0) {
+                        grandparent.children[parentindex + 2].children[index - 1].style.backgroundColor = "";
+                    }
+
+                   
+                    //to the right in the row below
+                    if (index < myparent.children.length - 1) {
+                        grandparent.children[parentindex + 2].children[index + 1].style.backgroundColor = "";
+                    }
+                }
+            });
+        </script>
+    </body>
+
+</html>
